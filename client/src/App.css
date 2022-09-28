@@ -1,0 +1,80 @@
+.App {
+    text-align: center;
+}
+
+.main-body {
+    display: flex;
+    flex-direction: row;
+}
+.groups {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    margin: 10px;
+    width: 40%;
+}
+
+.chats {
+    display: flex;
+    border: 2px solid black;
+    margin: 10px;
+    width: 60%;
+}
+
+.my-group {
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 90%;
+    margin: auto;
+    border: 2px solid black;
+}
+
+.chat {
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+.chat-body {
+    width: auto;
+    height: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+    overflow-y: scroll;
+}
+
+.load_message {
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+}
+
+.my_message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 10px 10px 0 10px;
+    background-color: purple;
+    width: auto;
+    height: auto;
+}
+
+.msgMeta {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-right: 20px;
+}
+
+.div-chat {
+    width: 90%;
+    justify-content: center;
+    margin: auto;
+}
