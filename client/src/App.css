@@ -2,6 +2,14 @@
     text-align: center;
 }
 
+body {
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .main-body {
     display: flex;
     flex-direction: row;
@@ -26,7 +34,7 @@
     justify-content: center;
     height: 50px;
     width: 90%;
-    margin: auto;
+    margin: auto auto 10px auto;
     border: 2px solid black;
 }
 
@@ -54,27 +62,82 @@
     height: auto;
 }
 
-.my_message {
+#you .my_message {
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid black;
     border-radius: 5px;
-    margin: 10px 10px 0 10px;
+    margin-left: 48%;
+    margin-top: 10px;
     background-color: purple;
-    width: auto;
+    width: 50%;
     height: auto;
 }
 
-.msgMeta {
+#other .my_message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 50%;
+    margin-top: 10px;
+    background-color: green;
+    width: 50%;
+    height: auto;
+}
+
+#you .msgMeta {
     display: flex;
     flex-direction: row;
     justify-content: right;
     margin-right: 20px;
 }
 
+#other .msgMeta {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 20px;
+}
+
 .div-chat {
     width: 90%;
     justify-content: center;
     margin: auto;
+}
+
+.chat-foot input {
+    width: 90%;
+    height: 30px;
+}
+
+.chat-foot button {
+    width: auto;
+    height: 35px;
+}
+
+.joinContainer {
+    width: 25%;
+    margin: 50px auto auto auto;
+    border: 2px solid black;
+    justify-content: center;
+    align-items: center;
+}
+
+.room-code {
+    width: 90%;
+    margin: auto auto 20px auto;
+}
+
+.room-code input {
+    width: 45%;
+    height: 30px;
+}
+
+.room-code button {
+    width: auto;
+    height: 35px;
 }

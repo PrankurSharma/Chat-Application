@@ -65,7 +65,7 @@ function Main() {
                     {!displayChat ? 
                         (<></>) : 
                         (<>
-                            <Chat socket={socket} username={username} room={room} groupclick={groupclick}/>
+                            <Chat socket={socket} username={username} email={email} room={room} groupclick={groupclick}/>
                         </>)
                     }
                 </div>

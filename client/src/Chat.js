@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from 'axios';
 
-function Chat({socket, username, room, groupclick}){
+function Chat({socket, username, email, room, groupclick}){
     const [currentMess, set_currentMess] = useState("");
     const [messageList, set_messageList] = useState([]);
     const [loadChat, set_loadChat] = useState([]);
@@ -10,6 +10,7 @@ function Chat({socket, username, room, groupclick}){
             const messageData = {
                 room: room,
                 sender: username,
+                sender_email: email,
                 message: currentMess,
                 time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
             };
@@ -23,6 +24,7 @@ function Chat({socket, username, room, groupclick}){
             Axios.post('http://localhost:3001/api/insert', {
                 room_no: room,
                 sender: username,
+                sender_email: email,
                 message: currentMess,
                 time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
             });
@@ -50,33 +52,31 @@ function Chat({socket, username, room, groupclick}){
     return (
     <div className="chat">
         <div className="chat-head">
-            <p> Live Chat </p>
+            <h1> Live Chat </h1>
         </div>
         <div className="chat-body">
             {loadChat.map((c) => {
                 return (
-                    <div className="load_message">
+                    <div className="load_message" id={email === c.sender_email ? "you" : "other"}>
                         <div className="my_message"> 
                             <p> {c.msg} </p>
                         </div>
                         <div className="msgMeta">
                             <p> {c.msg_time} </p>
-                            <p> {c.sender} </p>
+                            {email === c.sender_email ? <p> You </p> : <p> {c.sender} </p>}
                         </div>
                     </div>
                 );
             })}
             {messageList.map((msg) => {
                 return (
-                   <div className="load_message" id={username === msg.sender ? "you" : "other"}>
-                        <div>
-                            <div className="my_message">
-                                <p> {msg.message} </p>
-                            </div>
-                            <div className="msgMeta">
-                                <p id="time"> {msg.time} </p>
-                                <p id="sender"> {msg.sender} </p>
-                            </div>
+                   <div className="load_message" id={email === msg.sender_email ? "you" : "other"}>
+                        <div className="my_message">
+                            <p> {msg.message} </p>
+                        </div>
+                        <div className="msgMeta">
+                            <p id="time"> {msg.time} </p>
+                            {email === msg.sender_email ? <p> You </p> : <p> {msg.sender} </p>}
                         </div>
                    </div> 
                 ); 
@@ -90,7 +90,7 @@ function Chat({socket, username, room, groupclick}){
                 set_currentMess(event.target.value);
             }}
             onKeyPress={(event) => {
-                event.key === "Enter" && sendMessage();
+                event.key === "Enter" && sendMessage() && insertInDB();
             }}
             />
             <button onClick={() => {

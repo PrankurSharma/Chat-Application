@@ -26,7 +26,7 @@ function MyRooms({changeGroupClick, setRoom}) {
                         <div className='my-group' onClick={() => {
                             changeGroupClick((val) => !val);
                             setRoom(g.room_no);
-                        }}> {g.room_no} </div>
+                        }}> {g.group_name} </div>
                     </div>
                 );
             })}

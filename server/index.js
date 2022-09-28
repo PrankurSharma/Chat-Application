@@ -85,9 +85,10 @@ app.post('/api/insert', (req, res) => {
     let sender = req.body.sender;
     let message = req.body.message;
     let time = req.body.time;
+    let sender_email = req.body.sender_email;
     console.log(sender);
-    const sqlInsert = "insert into messages (room_no, sender, msg, msg_time) values (?, ?, ?, ?)";
-    db.query(sqlInsert, [room, sender, message, time], (err, result) => {
+    const sqlInsert = "insert into messages (room_no, sender, msg, msg_time, sender_email) values (?, ?, ?, ?, ?)";
+    db.query(sqlInsert, [room, sender, message, time, sender_email], (err, result) => {
         res.status(200).json({});
     });
 });
@@ -129,7 +130,7 @@ app.get('/api/login', (req, res) => {
 app.post('/api/checkroom', (req, res) => {
     let room = req.body.room;
     let email = req.body.email;
-    const sqlSelect = "select * from rooms where room_no = ?";
+    const sqlSelect = "select * from room_details where room = ?";
     db.query(sqlSelect, room, (err, result) => {
         if(result.length > 0){
             const sqlSel = "select * from rooms where room_no = ? and email = ?";
@@ -141,7 +142,7 @@ app.post('/api/checkroom', (req, res) => {
                     });
                 }
                 else{
-                    res.status(200).json({});
+                    res.send({message: "Already in this group."});
                 }
             });
         }
@@ -154,9 +155,13 @@ app.post('/api/checkroom', (req, res) => {
 app.post('/api/createroom', (req, res) => {
     let room = req.body.room;
     let email = req.body.email;
-    const sqlInsert = "insert into rooms (room_no, email) values (?, ?)";
-    db.query(sqlInsert, [room, email], (err, result) => {
-        res.status(200).json({});
+    let groupname = req.body.groupname;
+    const sqlInsertRoom = "insert into rooms (room_no, email) values (?, ?)";
+    db.query(sqlInsertRoom, [room, email], (err, result) => {
+        const sqlInsertRoomDetails = "insert into room_details(room, group_name) values (?, ?)";
+        db.query(sqlInsertRoomDetails, [room, groupname], (err, result) => {
+            res.status(200).json({});
+        });
     });
 });
 
@@ -169,7 +174,7 @@ app.post('/api/getmessages', (req, res) => {
 });
 
 app.get('/api/fetchrooms', (req, res) => {
-    const sqlSelect = "select room_no from rooms where email = ?";
+    const sqlSelect = "select r.room_no, rd.group_name from rooms r, room_details rd where r.email = ? and r.room_no = rd.room";
     db.query(sqlSelect, req.session.user[0].email, (err, result) => {
         res.send(result);
     });
