@@ -134,10 +134,10 @@ body {
 
 .room-code input {
     width: 45%;
-    height: 30px;
+    height: 40px;
 }
 
 .room-code button {
-    width: auto;
-    height: 35px;
+    width: 45%;
+    height: 45px;
 }
