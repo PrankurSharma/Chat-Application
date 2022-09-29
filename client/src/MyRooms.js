@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
-function MyRooms({changeGroupClick, setRoom}) {
+function MyRooms({changeGroupClick, setGroup}) {
     Axios.defaults.withCredentials = true;
     const [groups, set_groups] = useState([]);
     
@@ -25,7 +25,7 @@ function MyRooms({changeGroupClick, setRoom}) {
                     <div> 
                         <div className='my-group' onClick={() => {
                             changeGroupClick((val) => !val);
-                            setRoom(g.room_no);
+                            setGroup(g.room_no, g.group_name);
                         }}> {g.group_name} </div>
                     </div>
                 );

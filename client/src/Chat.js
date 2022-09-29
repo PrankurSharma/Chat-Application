@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from 'axios';
 
-function Chat({socket, username, email, room, groupclick}){
+function Chat({socket, username, email, room, groupname, groupclick}){
     const [currentMess, set_currentMess] = useState("");
     const [messageList, set_messageList] = useState([]);
     const [loadChat, set_loadChat] = useState([]);
@@ -52,7 +52,8 @@ function Chat({socket, username, email, room, groupclick}){
     return (
     <div className="chat">
         <div className="chat-head">
-            <h1> Live Chat </h1>
+            <h1> {groupname} </h1>
+            <h5> Room Code: {room} </h5>
         </div>
         <div className="chat-body">
             {loadChat.map((c) => {

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import Chat from './Chat';
 import MyRooms from './MyRooms';
+import Header from './Header';
 
 const socket = io.connect("http://localhost:3001");
 
@@ -13,6 +14,7 @@ function Main() {
     const [groupclick, set_groupclick] = useState(false);
     const [displayChat, set_displayChat] = useState(false);
     const [room, set_room] = useState("");
+    const [groupname, set_groupname] = useState("");
 
     useEffect(() => {
         Axios.get('http://localhost:3001/api/login').then((response) => {
@@ -25,8 +27,9 @@ function Main() {
         set_groupclick(newValue);
     }
 
-    function setRoom(newValue){
-        set_room(newValue);
+    function setGroup(newValue1, newValue2){
+        set_room(newValue1);
+        set_groupname(newValue2);
     }
 
     const joinRoom = () => {
@@ -48,24 +51,18 @@ function Main() {
     return (
         <div>
             <div>
-                <h1> Hi User {username} </h1>
-                <button onClick={() => {
-                    window.location.href = '/createroom';
-                }}> Create a Room </button>
-                <button onClick={() => {
-                    window.location.href = '/joinroom';
-                }}> Join a Room </button>
+                <Header username={username} />
             </div>
             <div className='main-body'>
                 <div className='groups'>
                     <h1> My Groups </h1>
-                    <MyRooms changeGroupClick={changeGroupClick} setRoom={setRoom} />
+                    <MyRooms changeGroupClick={changeGroupClick} setGroup={setGroup} />
                 </div>
                 <div className='chats'>
                     {!displayChat ? 
                         (<></>) : 
                         (<>
-                            <Chat socket={socket} username={username} email={email} room={room} groupclick={groupclick}/>
+                            <Chat socket={socket} username={username} email={email} room={room} groupname={groupname} groupclick={groupclick}/>
                         </>)
                     }
                 </div>

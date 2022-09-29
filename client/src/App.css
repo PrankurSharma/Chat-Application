@@ -3,7 +3,7 @@
 }
 
 body {
-    
+    background-image: url('../public/chat background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -13,18 +13,24 @@ body {
 .main-body {
     display: flex;
     flex-direction: row;
+    margin-top: 40px;
 }
 .groups {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border: 2px solid blue;
+    box-shadow: 0 2px 25px blue;
+    color: blue;
     margin: 10px;
     width: 40%;
+    height: 620px;
+    overflow-y: scroll;
 }
 
 .chats {
     display: flex;
-    border: 2px solid black;
+    border: 2px solid purple;
+    box-shadow: 0 2px 25px purple;
     margin: 10px;
     width: 60%;
 }
@@ -35,13 +41,26 @@ body {
     height: 50px;
     width: 90%;
     margin: auto auto 10px auto;
-    border: 2px solid black;
+    border: 2px solid blue;
+    color: blue;
+}
+
+.my-group:hover {
+    background-color: gray;
+}
+
+.my-group:focus {
+    background-color: gray;
 }
 
 .chat {
     justify-content: center;
     width: 100%;
     height: auto;
+}
+
+.chat-head {
+    color: purple;
 }
 
 .chat-body {
@@ -51,7 +70,7 @@ body {
     display: flex;
     flex-direction: column;
     border-radius: 4px;
-    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 25px purple;
     overflow-y: scroll;
 }
 
@@ -70,7 +89,7 @@ body {
     border-radius: 5px;
     margin-left: 48%;
     margin-top: 10px;
-    background-color: purple;
+    background-color: grey;
     width: 50%;
     height: auto;
 }
@@ -110,26 +129,29 @@ body {
 }
 
 .chat-foot input {
-    width: 90%;
+    background-color: purple;
+    width: 80%;
     height: 30px;
 }
 
 .chat-foot button {
+    background-color: purple;
     width: auto;
-    height: 35px;
+    height: 30px;
 }
 
 .joinContainer {
     width: 25%;
     margin: 50px auto auto auto;
-    border: 2px solid black;
+    border: 2px solid purple;
     justify-content: center;
     align-items: center;
+    color: blue;
 }
 
 .room-code {
     width: 90%;
-    margin: auto auto 20px auto;
+    margin: 40px auto 20px auto;
 }
 
 .room-code input {
@@ -139,5 +161,7 @@ body {
 
 .room-code button {
     width: 45%;
-    height: 45px;
+    height: 40px;
 }
+
+

@@ -6,6 +6,7 @@ import Signup from './Signup';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CreateRoom from './CreateRoom';
 import JoinRoom from './JoinRoom';
+import AddMember from './AddMember';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +18,7 @@ root.render(
             <Route exact path="/signup" element={<Signup/>} />
             <Route exact path="/createroom" element={<CreateRoom />} />
             <Route exact path="/joinroom" element={<JoinRoom />} />
+            <Route exact path="/addmember" element={<AddMember />} />
         </Routes>
     </BrowserRouter>
 );

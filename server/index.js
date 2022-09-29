@@ -152,6 +152,38 @@ app.post('/api/checkroom', (req, res) => {
     });
 });
 
+app.post('/api/addmember', (req, res) => {
+    let room = req.body.room;
+    let email = req.body.email;
+    const sqlSelect = "select * from room_details where room = ?";
+    db.query(sqlSelect, room, (err, result) => {
+        if(result.length > 0){
+            const sqlSel = "select * from rooms where room_no = ? and email = ?";
+            db.query(sqlSel, [room, req.session.user[0].email], (err, ress) => {
+                if(ress.length) {
+                    db.query(sqlSel, [room, email], (err, r) => {
+                        if(r.length){
+                            res.send("The person is already in this group.");
+                        }
+                        else{
+                            const sqlInsert = "insert into rooms (room_no, email) values (?, ?)";
+                            db.query(sqlInsert, [room, email], (err, results) => {
+                                res.send(result);
+                            });
+                        }
+                    });
+                }
+                else{
+                    res.send({message: "You are not a part of this group. So, person can't be added to this group by you."});
+                }
+            });
+        }
+        else{
+            res.send({message: "Invalid Room No."});
+        }
+    });
+});
+
 app.post('/api/createroom', (req, res) => {
     let room = req.body.room;
     let email = req.body.email;

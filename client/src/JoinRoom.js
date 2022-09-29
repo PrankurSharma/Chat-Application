@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Axios from 'axios';
+import Header from './Header';
 
 function JoinRoom() {
     Axios.defaults.withCredentials = true;
     const [username, set_username] = useState("");
     const [email, set_email] = useState("");
     const [room, set_room] = useState("");
-    //const [click, set_click] = useState(false);
-    //const [displayChat, set_displayChat] = useState(false);
 
     useEffect(() => {
         Axios.get('http://localhost:3001/api/login').then((response) => {
@@ -32,8 +31,6 @@ function JoinRoom() {
                     alert(response.data.message);
                 }
                 else{
-                    //socket.emit("join_room", room);
-                    //set_displayChat(true);
                     alert("Room joined successfully.");
                     window.location.href = "/";
                 }
@@ -47,14 +44,13 @@ function JoinRoom() {
     return (
         <div className="Room">
             <div className="joinContainer">
+                <Header username={username} />
                 <div className="room-code">
-                    <h1> Hi user {username} </h1>
                     <h3> Join A Room </h3>
                     <input type="text" placeholder="Room No." onChange={(event) => {
                         set_room(event.target.value);
                     }}/>
                     <button onClick={() => {
-                        //set_click((val) => !val);
                         joinRoom();
                     }}> Join This Room </button>
                 </div>

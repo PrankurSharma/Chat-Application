@@ -1,15 +1,12 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from "react";
 import Axios from 'axios';
-import uuid from 'react-uuid';
 import Header from './Header';
 
-function CreateRoom() {
+function AddMember() {
     Axios.defaults.withCredentials = true;
     const [username, set_username] = useState("");
     const [email, set_email] = useState("");
     const [room, set_room] = useState("");
-    const [groupname, set_groupname] = useState("");
-    const alloted_room = uuid().slice(0, 7);
 
     useEffect(() => {
         Axios.get('http://localhost:3001/api/login').then((response) => {
@@ -19,50 +16,48 @@ function CreateRoom() {
             }
             else{
                 set_username(response.data[0].name);
-                set_email(response.data[0].email);
-                set_room(alloted_room);
             }
         });
     }, []);
     
     const joinRoom = () => {
-        if(email !== "" && room !== "" && groupname !== ""){
-            Axios.post("http://localhost:3001/api/createroom", {
+        if(email !== "" && room !== ""){
+            Axios.post('http://localhost:3001/api/addmember', {
                 email: email,
-                room: room,
-                groupname: groupname
+                room: room
             }).then((response) => {
                 if(response.data.message){
                     alert(response.data.message);
                 }
                 else{
-                    alert("Room created successfully.");
+                    alert("Room joined successfully.");
                     window.location.href = "/";
                 }
             });
         }
-        else {
-            alert("Please enter a name for the group.");
+        else{
+            alert("Please enter a room no.");
         }
     };
 
     return (
         <div className="Room">
-            <div className='joinContainer'>
+            <div className="joinContainer">
                 <Header username={username} />
                 <div className="room-code">
-                    <h3> Join A Room </h3>
-                    <p> Please share the code: {room} with others in order to join the Chat group. </p>
-                    <input type="text" placeholder="Name of this group" onChange={(event) => {
-                        set_groupname(event.target.value);
+                    <h3> Add a Participant </h3>
+                    <input type="text" placeholder="Room No." onChange={(event) => {
+                        set_room(event.target.value);
+                    }} />
+                    <input type="text" placeholder="Email of the Person" onChange={(event) => {
+                        set_email(event.target.value);
                     }} />
                     <button onClick={() => {
                         joinRoom();
-                        }}> Create Room </button>
+                    }}> Add to this Group </button>
                 </div>
             </div>
         </div>
     );
 }
-
-export default CreateRoom;
+export default AddMember;
