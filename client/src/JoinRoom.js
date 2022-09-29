@@ -43,8 +43,8 @@ function JoinRoom() {
 
     return (
         <div className="Room">
+            <Header username={username} />
             <div className="joinContainer">
-                <Header username={username} />
                 <div className="room-code">
                     <h3> Join A Room </h3>
                     <input type="text" placeholder="Room No." onChange={(event) => {

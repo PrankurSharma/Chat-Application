@@ -48,10 +48,10 @@ function CreateRoom() {
 
     return (
         <div className="Room">
+            <Header username={username} />
             <div className='joinContainer'>
-                <Header username={username} />
                 <div className="room-code">
-                    <h3> Join A Room </h3>
+                    <h3> Create A Room </h3>
                     <p> Please share the code: {room} with others in order to join the Chat group. </p>
                     <input type="text" placeholder="Name of this group" onChange={(event) => {
                         set_groupname(event.target.value);
