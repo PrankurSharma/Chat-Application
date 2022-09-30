@@ -144,6 +144,7 @@ body {
     width: 25%;
     margin: 40px auto auto auto;
     border: 2px solid purple;
+    box-shadow: 0 2px 25px purple;
     justify-content: center;
     align-items: center;
     color: blue;
