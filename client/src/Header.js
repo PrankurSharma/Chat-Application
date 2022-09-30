@@ -1,10 +1,25 @@
 import React from 'react';
+import Axios from 'axios';
 import { LinkContainer } from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 function Header({username}) {
+    const navigate = useNavigate();
+    const navigateToLogin = () => {
+        navigate('/login');
+    }
+    const logout = () => {
+        var ans = window.confirm("Are you sure you want to logout?");
+        if(ans){
+            Axios.get('http://localhost:3001/api/logout').then((response) => {
+                alert("Logged out successfully.");
+                navigateToLogin();
+            });
+        }
+    }
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
@@ -34,7 +49,12 @@ function Header({username}) {
                             </LinkContainer>
                         </Nav>
                         <Nav>
-                            <Nav.Link disabled> Hi, {username} </Nav.Link>
+                            <Nav.Link disabled> Hi {username}, </Nav.Link>
+                            <Nav.Link onClick={() => {
+                                logout();
+                            }}>
+                                Logout
+                            </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

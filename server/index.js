@@ -8,6 +8,10 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mysqlStore = require('express-mysql-session')(session);
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+var port = process.env.port || 3001;
+
 app.use(cors({
         origin: "http://localhost:3000",
 	    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
@@ -97,23 +101,37 @@ app.post('/api/signup', (req, res) => {
     let email = req.body.email;
     let username = req.body.username;
     let password = req.body.password;
-    const sqlInsert = "insert into users (name, email, password) values (?, ?, ?)";
-    db.query(sqlInsert, [username, email, password], (err, result) => {
-        res.status(200).json({});
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            const sqlInsert = "insert into users (name, email, password) values (?, ?, ?)";
+            db.query(sqlInsert, [username, email, hash], (err, result) => {
+                res.status(200).json({});
+            });
+        }
     });
 });
 
 app.post('/api/login', (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
-    const sqlSelect = "select * from users where email = ? and password = ?";
+    const sqlSelect = "select * from users where email = ?";
     db.query(sqlSelect, [email, password], (err, result) => {
         if(result.length > 0){
-            req.session.user = result;
-            res.send(result);
+            bcrypt.compare(password, result[0].password, (err, ress) => {
+                if(ress){
+                    req.session.user = result;
+                    res.send(result);
+                }
+                else{
+                    res.send({message: "Wrong id or password."});
+                }
+            });
         }
         else{
-            res.send({message: "Invalid email or password"});
+            res.send({message: "User doesn't exist."});
         }
     });
 });
@@ -124,6 +142,14 @@ app.get('/api/login', (req, res) => {
     }
     else{
         res.send({message: "Please login in order to continue"});
+    }
+});
+
+app.get('/api/logout', (req, res) => {
+    if(req.session.user) {
+        req.session.destroy();
+        res.send({message: "Logged out."});
+        res.end();
     }
 });
 
@@ -212,6 +238,6 @@ app.get('/api/fetchrooms', (req, res) => {
     });
 });
 
-server.listen(3001, () => {
+server.listen(port, () => {
     console.log("Server running");
 });

@@ -1,32 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Axios from 'axios';
 import uuid from 'react-uuid';
 import Header from './Header';
+import Spinner from './Spinner';
+import { useNavigate } from 'react-router-dom';
 
 function CreateRoom() {
     Axios.defaults.withCredentials = true;
     const [username, set_username] = useState("");
     const [email, set_email] = useState("");
-    const [room, set_room] = useState("");
     const [groupname, set_groupname] = useState("");
     const alloted_room = uuid().slice(0, 7);
+    const [room, set_room] = useState("");
+    const [loading, set_loading] = useState(true);
 
-    useEffect(() => {
-        Axios.get('http://localhost:3001/api/login').then((response) => {
-            if(response.data.message){
-                alert(response.data.message);
-                window.location.href = "/login";
-            }
-            else{
-                set_username(response.data[0].name);
-                set_email(response.data[0].email);
-                set_room(alloted_room);
-            }
-        });
-    }, []);
+    const navigate = useNavigate();
+    const navigateToHome = () => {
+        navigate('/');
+    }
+
+    function handleChange(newValue) {
+        set_loading(newValue);
+    }
+
+    function fetchDetails(newValue1, newValue2) {
+        set_username(newValue1);
+        set_email(newValue2);
+        set_room(alloted_room);
+    }
     
     const joinRoom = () => {
-        if(email !== "" && room !== "" && groupname !== ""){
+        if(email !== "" && groupname !== ""){
             Axios.post("http://localhost:3001/api/createroom", {
                 email: email,
                 room: room,
@@ -37,7 +41,7 @@ function CreateRoom() {
                 }
                 else{
                     alert("Room created successfully.");
-                    window.location.href = "/";
+                    navigateToHome();
                 }
             });
         }
@@ -45,6 +49,12 @@ function CreateRoom() {
             alert("Please enter a name for the group.");
         }
     };
+
+    if(loading) {
+        return (
+            <Spinner handleChange={handleChange} fetchDetails={fetchDetails} />
+        );
+    }
 
     return (
         <div className="Room">

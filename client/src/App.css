@@ -2,6 +2,30 @@
     text-align: center;
 }
 
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f5f5f5;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: #ccc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #999;
+}
+
+* {
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+}
+
 body {
     background-image: url('../public/chat background.jpg');
     background-size: cover;
@@ -10,11 +34,19 @@ body {
     background-attachment: fixed;
 }
 
+.spinner {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
 .main-body {
     display: flex;
     flex-direction: row;
     margin-top: 40px;
 }
+
 .groups {
     display: flex;
     flex-direction: column;
@@ -24,7 +56,7 @@ body {
     margin: 10px;
     width: 40%;
     height: 620px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .chats {
@@ -46,10 +78,6 @@ body {
 }
 
 .my-group:hover {
-    background-color: gray;
-}
-
-.my-group:focus {
     background-color: gray;
 }
 
@@ -89,7 +117,7 @@ body {
     border-radius: 5px;
     margin-left: 48%;
     margin-top: 10px;
-    background-color: grey;
+    background-color: green;
     width: 50%;
     height: auto;
 }
@@ -103,7 +131,7 @@ body {
     margin-left: 10px;
     margin-right: 50%;
     margin-top: 10px;
-    background-color: green;
+    background-color: gray;
     width: 50%;
     height: auto;
 }
@@ -163,6 +191,123 @@ body {
 .room-code button {
     width: 45%;
     height: 40px;
+}
+
+.warn {
+    color: purple;
+}
+
+.login-form {
+	background: #fff;
+	width: 450px;
+	margin: 80px auto;
+	display: -webkit-box;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	flex-direction: column;
+	border-radius: 4px;
+	box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+}
+
+.login-form h1 {
+	padding: 35px 35px 0 35px;
+	font-weight: 300;
+}
+
+.login-form .content {
+	padding: 0 35px 5px 35px;
+	text-align: center;
+}
+
+.login-form .input-field {
+	padding: 12px 5px;
+}
+
+.login-form .input-field input {
+	font-size: 16px;
+	display: block;
+	font-family: 'Rubik', sans-serif;
+	width: 100%;
+	padding: 10px 1px;
+	border: 0;
+	border-bottom: 1px solid #747474;
+	outline: none;
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+.login-form .input-field input::-webkit-input-placeholder {
+	text-transform: uppercase;
+}
+
+.login-form .input-field input::-moz-placeholder {
+	text-transform: uppercase;
+}
+
+.login-form .input-field input:-ms-input-placeholder {
+	text-transform: uppercase;
+}
+
+.login-form .input-field input::-ms-input-placeholder {
+	text-transform: uppercase;
+}
+
+.login-form .input-field input::placeholder {
+	text-transform: uppercase;
+}
+
+.login-form .input-field input:focus {
+	border-color: #222;
+}
+
+.login-form a.link {
+	text-decoration: none;
+	color: #747474;
+	letter-spacing: 0.2px;
+	text-transform: uppercase;
+	display: inline-block;
+	margin-top: 20px;
+}
+
+.login-form .action {
+	display: -webkit-box;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	flex-direction: row;
+}
+
+.login-form .action button {
+	width: 100%;
+	border: none;
+	padding: 18px;
+	font-family: 'Rubik', sans-serif;
+	cursor: pointer;
+	text-transform: uppercase;
+	background: #e8e9ec;
+	color: #777;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 0;
+	letter-spacing: 0.2px;
+	outline: 0;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}
+
+.login-form .action button:hover {
+	background: #d8d8d8;
+}
+
+.login-form .action button:nth-child(2) {
+	background: rgba(138, 43, 226);
+	color: #fff;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 4px;
+}
+
+.login-form .action button:nth-child(2):hover {
+	background: #3c4d6d;
 }
 
 

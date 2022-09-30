@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function Signup() {
     const [email, set_email] = useState("");
     const [username, set_username] = useState("");
     const [password, set_password] = useState("");
+    const navigate = useNavigate();
+    const navigateToLogin = () => {
+        navigate('/login');
+    }
 
     const handleSubmit = () => {
         if(email && username && password){
@@ -13,7 +18,7 @@ function Signup() {
                 password: password
             }).then((response) => {
                 if(!response.data.message && !response.data.error){
-                    window.location.href = "/login";
+                    navigateToLogin();
                 }
                 else{
                     alert(response.data.message);
@@ -26,41 +31,40 @@ function Signup() {
     }
 
     return (
-        <div>
-            <h1> Signup </h1>
+        <div className="login-form">
             <div>
-                <div>
-                    <input type="text" 
-                    name="email"
-                    placeholder="Email"
-                    onChange={(e) => {
+                <h1> Signup </h1>
+                <div className="content">
+                    <div className="input-field">
+                        <input type="text"
+                        name="email"
+                        onChange={(e) => {
                         set_email(e.target.value);
-                    }} 
-                    />
-                </div>
-                <div>
-                    <input type="text" 
-                    name="email"
-                    placeholder="Username"
-                    onChange={(e) => {
+                        }} placeholder="Email" />
+                    </div>
+                    <div className="input-field">
+                        <input type="text"
+                        name="username"
+                        onChange={(e) => {
                         set_username(e.target.value);
-                    }} 
-                    />
-                </div>
-                <div>
-                    <input type="text"
-                    name="password"
-                    placeholder="Password"
-                    onChange={(e) => {
+                        }} placeholder="Username" />
+                    </div>
+                    <div className="input-field">
+                        <input type="password"
+                        name="password"
+                        onChange={(e) => {
                         set_password(e.target.value);
-                    }}
-                    />
+                        }} placeholder="Password" />
+                    </div>
                 </div>
-                <div>
-                    <button onClick={handleSubmit}> Submit </button>
+                <div className="action">
+                    <button className='button1' onClick={navigateToLogin}> Already have an account? Login </button>
+                    <button className='button1' onClick={() => {
+                    handleSubmit();
+                    }}> Register </button>
                 </div>
             </div>
-        </div>
+      </div>
     );
 }
 export default Signup;

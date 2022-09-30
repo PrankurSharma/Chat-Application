@@ -4,6 +4,7 @@ import Axios from 'axios';
 import Chat from './Chat';
 import MyRooms from './MyRooms';
 import Header from './Header';
+import Spinner from './Spinner';
 
 const socket = io.connect("http://localhost:3001");
 
@@ -15,21 +16,24 @@ function Main() {
     const [displayChat, set_displayChat] = useState(false);
     const [room, set_room] = useState("");
     const [groupname, set_groupname] = useState("");
+    const [loading, set_loading] = useState(true);
 
-    useEffect(() => {
-        Axios.get('http://localhost:3001/api/login').then((response) => {
-            set_username(response.data[0].name);
-            set_email(response.data[0].email);
-        });
-    }, []);
-
-    function changeGroupClick(newValue){
+    function changeGroupClick(newValue) {
         set_groupclick(newValue);
     }
 
-    function setGroup(newValue1, newValue2){
+    function setGroup(newValue1, newValue2) {
         set_room(newValue1);
         set_groupname(newValue2);
+    }
+
+    function handleChange(newValue) {
+        set_loading(newValue);
+    }
+
+    function fetchDetails(newValue1, newValue2) {
+        set_username(newValue1);
+        set_email(newValue2);
     }
 
     const joinRoom = () => {
@@ -47,6 +51,12 @@ function Main() {
     useEffect(() => {
         joinRoom();
     }, [groupclick]);
+
+    if(loading) {
+        return (
+            <Spinner handleChange={handleChange} fetchDetails={fetchDetails} />
+        );
+    }
 
     return (
         <div>

@@ -1,24 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Axios from 'axios';
 import Header from './Header';
+import Spinner from "./Spinner";
+import { useNavigate } from 'react-router-dom';
 
 function AddMember() {
     Axios.defaults.withCredentials = true;
     const [username, set_username] = useState("");
     const [email, set_email] = useState("");
     const [room, set_room] = useState("");
+    const [loading, set_loading] = useState(true);
+    const navigate = useNavigate();
+    const navigateToHome = () => {
+        navigate('/');
+    }
 
-    useEffect(() => {
-        Axios.get('http://localhost:3001/api/login').then((response) => {
-            if(response.data.message){
-                alert(response.data.message);
-                window.location.href = "/login";
-            }
-            else{
-                set_username(response.data[0].name);
-            }
-        });
-    }, []);
+    function handleChange(newValue) {
+        set_loading(newValue);
+    }
+
+    function fetchDetails(newValue1, newValue2) {
+        set_username(newValue1);
+        set_email(newValue2);
+    }
     
     const joinRoom = () => {
         if(email !== "" && room !== ""){
@@ -31,7 +35,7 @@ function AddMember() {
                 }
                 else{
                     alert("Room joined successfully.");
-                    window.location.href = "/";
+                    navigateToHome();
                 }
             });
         }
@@ -39,6 +43,12 @@ function AddMember() {
             alert("Please enter a room no.");
         }
     };
+
+    if(loading) {
+        return (
+            <Spinner handleChange={handleChange} fetchDetails={fetchDetails} />
+        );
+    }
 
     return (
         <div className="Room">
