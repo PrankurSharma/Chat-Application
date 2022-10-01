@@ -14,7 +14,7 @@ function Header({username}) {
     const logout = () => {
         var ans = window.confirm("Are you sure you want to logout?");
         if(ans){
-            Axios.get('http://localhost:3001/api/logout').then((response) => {
+            Axios.get('https://my-chatly.herokuapp.com/api/logout').then((response) => {
                 alert("Logged out successfully.");
                 navigateToLogin();
             });

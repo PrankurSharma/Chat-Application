@@ -16,7 +16,7 @@ function Login() {
     }
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/api/login').then((response) => {
+        Axios.get('https://my-chatly.herokuapp.com/api/login').then((response) => {
             if(response.data[0].name && response.data[0].email){
                 set_loggedin(true);
             }
@@ -25,7 +25,7 @@ function Login() {
 
     const handleSubmit = () => {
         if(email && password){
-            Axios.post('http://localhost:3001/api/login', {
+            Axios.post('https://my-chatly.herokuapp.com/api/login', {
                 email: email,
                 password: password
             }).then((response) => {
@@ -45,7 +45,7 @@ function Login() {
     if(loggedin) {
         return (
             <div className="warn">
-                <h1> You are already signed in from an account. Please logout of that session in order to continue logging in to another account. Please navigate to: http://localhost:3000 to access your account. </h1>
+                <h1> You are already signed in from an account. Please logout of that session in order to continue logging in to another account. Please navigate to: https://mychatly.netlify.app to access your account. </h1>
             </div>
         );
     }

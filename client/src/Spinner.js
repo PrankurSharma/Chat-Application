@@ -10,7 +10,7 @@ function Spinner({ handleChange, fetchDetails }) {
         navigate('/login');
     }
     useEffect(() => {
-        Axios.get('http://localhost:3001/api/login').then((response) => {
+        Axios.get('https://my-chatly.herokuapp.com/api/login').then((response) => {
             if(response.data.message){
                 navigateToLogin();
             }

@@ -26,7 +26,7 @@ function JoinRoom() {
     
     const joinRoom = () => {
         if(email !== "" && room !== ""){
-            Axios.post('http://localhost:3001/api/checkroom', {
+            Axios.post('https://my-chatly.herokuapp.com/api/checkroom', {
                 email: email,
                 room: room
             }).then((response) => {

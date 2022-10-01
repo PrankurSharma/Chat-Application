@@ -6,7 +6,7 @@ function MyRooms({changeGroupClick, setGroup}) {
     const [groups, set_groups] = useState([]);
     
     useEffect(() => {
-        Axios.get('http://localhost:3001/api/fetchrooms').then((response) => {
+        Axios.get('https://my-chatly.herokuapp.com/api/fetchrooms').then((response) => {
             set_groups(response.data);
         });
     }, []);

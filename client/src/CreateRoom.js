@@ -31,7 +31,7 @@ function CreateRoom() {
     
     const joinRoom = () => {
         if(email !== "" && groupname !== ""){
-            Axios.post("http://localhost:3001/api/createroom", {
+            Axios.post("https://my-chatly.herokuapp.com/api/createroom", {
                 email: email,
                 room: room,
                 groupname: groupname

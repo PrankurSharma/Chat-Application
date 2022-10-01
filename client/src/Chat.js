@@ -21,7 +21,7 @@ function Chat({socket, username, email, room, groupname, groupclick}){
 
     const insertInDB = () => {
         if(currentMess !== ""){
-            Axios.post('http://localhost:3001/api/insert', {
+            Axios.post('https://my-chatly.herokuapp.com/api/insert', {
                 room_no: room,
                 sender: username,
                 sender_email: email,
@@ -32,7 +32,7 @@ function Chat({socket, username, email, room, groupname, groupclick}){
     }
 
     const chatFromDB = () => {
-        Axios.post('http://localhost:3001/api/getmessages', {
+        Axios.post('https://my-chatly.herokuapp.com/api/getmessages', {
             room_no: room
         }).then((response) => {
             set_loadChat(response.data);

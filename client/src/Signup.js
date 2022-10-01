@@ -12,7 +12,7 @@ function Signup() {
 
     const handleSubmit = () => {
         if(email && username && password){
-            Axios.post('http://localhost:3001/api/signup', {
+            Axios.post('https://my-chatly.herokuapp.com/api/signup', {
                 email: email,
                 username: username,
                 password: password

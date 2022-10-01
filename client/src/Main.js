@@ -6,7 +6,7 @@ import MyRooms from './MyRooms';
 import Header from './Header';
 import Spinner from './Spinner';
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://my-chatly.herokuapp.com");
 
 function Main() {
     Axios.defaults.withCredentials = true;
@@ -38,7 +38,7 @@ function Main() {
 
     const joinRoom = () => {
         if(email !== "" && room !== ""){
-            Axios.post('http://localhost:3001/api/checkroom', {
+            Axios.post('https://my-chatly.herokuapp.com/api/checkroom', {
                 email: email,
                 room: room
             }).then((response) => {

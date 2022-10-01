@@ -10,27 +10,27 @@ const session = require('express-session');
 const mysqlStore = require('express-mysql-session')(session);
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-var port = process.env.port || 3001;
+var port = process.env.PORT || 3001;
 
 app.use(cors({
-        origin: "http://localhost:3000",
+        origin: "https://mychatly.netlify.app",
 	    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
 	    credentials: true
     }
 ));
 
 const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'prankursharma',
-    database: 'chatapp'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
 });
 
 const options = {
-    password: "prankursharma",
-    user: "root",
-    database: "chatapp",
-    host: "localhost",
+    password: process.env.DB_PASS,
+    user: process.env.DB_USER,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
     createDatabaseTable: true
 }
 
@@ -41,19 +41,18 @@ const sessionStore = new mysqlStore(options, pool);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-//app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 app.use(session({
-	name: "name",
-	secret: "abcd",
+	name: process.env.SESS_NAME,
+	secret: process.env.SESS_SECRET,
 	resave: false,
 	saveUninitialized: false,
 	store: sessionStore,
 	cookie: {
 		maxAge: 1000 * 60 * 60 * 24 * 365,
-		//httpOnly: true,
-		//secure: process.env.NODE_ENV == 'production' ? true : false,
-        //secure: false,
-		//sameSite: 'none'
+		httpOnly: true,
+		secure: process.env.NODE_ENV == 'production' ? true : false,
+		sameSite: 'none'
 	}
 }));
 
@@ -61,7 +60,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://mychatly.netlify.app",
         methods: ["GET", "POST"],
         credentials: true
     },
