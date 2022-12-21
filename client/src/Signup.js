@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from './baseUrl';
 function Signup() {
     const [email, set_email] = useState("");
     const [username, set_username] = useState("");
@@ -12,7 +13,7 @@ function Signup() {
 
     const handleSubmit = () => {
         if(email && username && password){
-            Axios.post('https://my-chatly.herokuapp.com/api/signup', {
+            Axios.post(baseUrl + '/api/signup', {
                 email: email,
                 username: username,
                 password: password

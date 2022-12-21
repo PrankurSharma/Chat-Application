@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mysqlStore = require('express-mysql-session')(session);
 const bcrypt = require('bcrypt');
+
 const saltRounds = 10;
 var port = process.env.PORT || 3001;
 
@@ -89,7 +90,6 @@ app.post('/api/insert', (req, res) => {
     let message = req.body.message;
     let time = req.body.time;
     let sender_email = req.body.sender_email;
-    console.log(sender);
     const sqlInsert = "insert into messages (room_no, sender, msg, msg_time, sender_email) values (?, ?, ?, ?, ?)";
     db.query(sqlInsert, [room, sender, message, time, sender_email], (err, result) => {
         res.status(200).json({});

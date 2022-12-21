@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from 'axios';
+import { baseUrl } from "./baseUrl";
 
 function Chat({socket, username, email, room, groupname, groupclick}){
     const [currentMess, set_currentMess] = useState("");
@@ -22,7 +23,7 @@ function Chat({socket, username, email, room, groupname, groupclick}){
 
     const insertInDB = () => {
         if(currentMess !== ""){
-            Axios.post('https://my-chatly.herokuapp.com/api/insert', {
+            Axios.post(baseUrl + '/api/insert', {
                 room_no: room,
                 sender: username,
                 sender_email: email,
@@ -33,7 +34,7 @@ function Chat({socket, username, email, room, groupname, groupclick}){
     }
 
     const chatFromDB = () => {
-        Axios.post('https://my-chatly.herokuapp.com/api/getmessages', {
+        Axios.post(baseUrl + '/api/getmessages', {
             room_no: room
         }).then((response) => {
             set_loadChat(response.data);
@@ -53,6 +54,9 @@ function Chat({socket, username, email, room, groupname, groupclick}){
     return (
     <div className="chat">
         <div className="chat-head">
+            <button onClick={() => {
+                window.location.reload();
+            }}>&#8592;</button>
             <h1> {groupname} </h1>
             <h5> Room Code: {room} </h5>
         </div>

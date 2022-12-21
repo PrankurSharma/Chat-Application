@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import Axios from 'axios';
+import { baseUrl } from './baseUrl';
 
 function Spinner({ handleChange, fetchDetails }) {
     Axios.defaults.withCredentials = true;
@@ -10,7 +11,7 @@ function Spinner({ handleChange, fetchDetails }) {
         navigate('/login');
     }
     useEffect(() => {
-        Axios.get('https://my-chatly.herokuapp.com/api/login').then((response) => {
+        Axios.get(baseUrl + '/api/login').then((response) => {
             if(response.data.message){
                 navigateToLogin();
             }

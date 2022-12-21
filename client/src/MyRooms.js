@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
+import { baseUrl } from './baseUrl';
 
 function MyRooms({changeGroupClick, setGroup}) {
     Axios.defaults.withCredentials = true;
     const [groups, set_groups] = useState([]);
     
     useEffect(() => {
-        Axios.get('https://my-chatly.herokuapp.com/api/fetchrooms').then((response) => {
+        Axios.get(baseUrl + '/api/fetchrooms').then((response) => {
             set_groups(response.data);
         });
     }, []);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from './baseUrl';
 
 function Login() {
     Axios.defaults.withCredentials = true;
@@ -16,7 +17,7 @@ function Login() {
     }
 
     useEffect(() => {
-        Axios.get('https://my-chatly.herokuapp.com/api/login').then((response) => {
+        Axios.get(baseUrl + '/api/login').then((response) => {
             if(response.data[0].name && response.data[0].email){
                 set_loggedin(true);
             }
@@ -25,7 +26,7 @@ function Login() {
 
     const handleSubmit = () => {
         if(email && password){
-            Axios.post('https://my-chatly.herokuapp.com/api/login', {
+            Axios.post(baseUrl + '/api/login', {
                 email: email,
                 password: password
             }).then((response) => {

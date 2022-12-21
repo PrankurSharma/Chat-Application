@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from './baseUrl';
 
 function Header({username}) {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Header({username}) {
     const logout = () => {
         var ans = window.confirm("Are you sure you want to logout?");
         if(ans){
-            Axios.get('https://my-chatly.herokuapp.com/api/logout').then((response) => {
+            Axios.get(baseUrl + '/api/logout').then((response) => {
                 alert("Logged out successfully.");
                 navigateToLogin();
             });

@@ -5,8 +5,9 @@ import Chat from './Chat';
 import MyRooms from './MyRooms';
 import Header from './Header';
 import Spinner from './Spinner';
+import { baseUrl } from './baseUrl';
 
-const socket = io.connect("https://my-chatly.herokuapp.com");
+const socket = io.connect(baseUrl);
 
 function Main() {
     Axios.defaults.withCredentials = true;
@@ -38,7 +39,7 @@ function Main() {
 
     const joinRoom = () => {
         if(email !== "" && room !== ""){
-            Axios.post('https://my-chatly.herokuapp.com/api/checkroom', {
+            Axios.post(baseUrl + '/api/checkroom', {
                 email: email,
                 room: room
             }).then((response) => {
@@ -64,18 +65,15 @@ function Main() {
                 <Header username={username} />
             </div>
             <div className='main-body'>
-                <div className='groups'>
-                    <h1> My Groups </h1>
-                    <MyRooms changeGroupClick={changeGroupClick} setGroup={setGroup} />
-                </div>
-                <div className='chats'>
-                    {!displayChat ? 
-                        (<></>) : 
-                        (<>
-                            <Chat socket={socket} username={username} email={email} room={room} groupname={groupname} groupclick={groupclick}/>
-                        </>)
-                    }
-                </div>
+                {!displayChat ? 
+                    (<div className='groups'>
+                        <h1> My Groups </h1>
+                        <MyRooms changeGroupClick={changeGroupClick} setGroup={setGroup} />
+                    </div>) : 
+                    (<div className='chats'>
+                        <Chat socket={socket} username={username} email={email} room={room} groupname={groupname} groupclick={groupclick}/>
+                    </div>)
+                }
             </div>
         </div>
     );

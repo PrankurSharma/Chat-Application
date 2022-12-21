@@ -42,28 +42,23 @@ body {
 }
 
 .main-body {
-    display: flex;
-    flex-direction: row;
     margin-top: 40px;
 }
 
 .groups {
-    display: flex;
-    flex-direction: column;
     border: 2px solid blue;
     box-shadow: 0 2px 25px blue;
     color: blue;
-    margin: 10px;
+    margin-left: 30%;
     width: 40%;
     height: 620px;
     overflow-y: auto;
 }
 
 .chats {
-    display: flex;
     border: 2px solid purple;
     box-shadow: 0 2px 25px purple;
-    margin: 10px;
+    margin-left: 20%;
     width: 60%;
 }
 
@@ -89,6 +84,12 @@ body {
 
 .chat-head {
     color: purple;
+}
+
+.chat-head button {
+    background-color: purple;
+    width: auto;
+    height: 30px;
 }
 
 .chat-body {

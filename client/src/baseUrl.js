@@ -1,0 +1,1 @@
+export const baseUrl = 'https://chatly-back-end.onrender.com';

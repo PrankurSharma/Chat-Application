@@ -3,6 +3,7 @@ import Axios from 'axios';
 import Header from './Header';
 import Spinner from "./Spinner";
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from "./baseUrl";
 
 function AddMember() {
     Axios.defaults.withCredentials = true;
@@ -26,7 +27,7 @@ function AddMember() {
     
     const joinRoom = () => {
         if(email !== "" && room !== ""){
-            Axios.post('https://my-chatly.herokuapp.com/api/addmember', {
+            Axios.post(baseUrl + '/api/addmember', {
                 email: email,
                 room: room
             }).then((response) => {

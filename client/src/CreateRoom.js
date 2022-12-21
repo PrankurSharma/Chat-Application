@@ -4,6 +4,7 @@ import uuid from 'react-uuid';
 import Header from './Header';
 import Spinner from './Spinner';
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from './baseUrl';
 
 function CreateRoom() {
     Axios.defaults.withCredentials = true;
@@ -31,7 +32,7 @@ function CreateRoom() {
     
     const joinRoom = () => {
         if(email !== "" && groupname !== ""){
-            Axios.post("https://my-chatly.herokuapp.com/api/createroom", {
+            Axios.post(baseUrl + "/api/createroom", {
                 email: email,
                 room: room,
                 groupname: groupname
